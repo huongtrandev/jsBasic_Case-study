@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+
+#myCanvas {
+  display: inline-block;
+  position: absolute;
+  left: 45rem;
+  top: 2rem;
+}
+.guide {
+  display: inline-block;
+  position: absolute;
+  left: 25rem;
+  top: 2rem;
+  font-family: "Bungee", cursive;
+}
