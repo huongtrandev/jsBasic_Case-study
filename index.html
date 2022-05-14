@@ -6,14 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Case Study - Ball and brick</title>
     <style>
-      * {
-        padding: 0;
-        margin: 0;
-      }
       canvas {
-        background: #eee;
+        background: rgb(197, 137, 137);
         display: block;
         margin: 0 auto;
+        display: inline-block;
       }
     </style>
     <link rel="stylesheet" href="css/style.css" />
@@ -35,24 +32,28 @@
     ></script>
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-3">
+        <div class="col-6">
           <h1>-GAME GUIDE-</h1>
           <h2>Move the bar</h2>
           <p>
             Let the bar hit the ball and the ball hit the brick and comback with
             the bar
           </p>
+          <button id="button" onclick="start()">Play</button>
         </div>
-        <canvas id="myCanvas" width="500" height="500" class="col-4"></canvas>
+        <canvas
+          id="myCanvas"
+          width="500px"
+          height="500px"
+          class="col-6"
+        ></canvas>
         <!-- <audio autoplay loop>
         <source src="ms1.mp3" type="audio/mp3" />
       </audio> -->
-        <div class="col-4" id="guide"></div>
       </div>
     </div>
-    <button id="button" onclick="start()">Play</button>
     <script>
       var canvas = document.getElementById("myCanvas");
       var ctx = canvas.getContext("2d");
@@ -67,10 +68,40 @@
       var rightPressed = false;
       var leftPressed = false;
       var interval = setInterval(draw, 15);
+      var audio = new Audio("ms1.mp3");
+      audio.play();
+      // where to find flash SWFs, if needed...
+      soundManager.url = "ms1.mp3";
+
+      soundManager.onready(function () {
+        soundManager.createSound({
+          id: "mySound",
+          url: "ms1.mp3",
+        });
+
+        // ...and play it
+        soundManager.play("mySound");
+      });
       document.addEventListener("keydown", keyDownHandler, false);
       document.addEventListener("keyup", keyUpHandler, false);
       function start() {
         draw();
+      }
+      function canvasbgr() {
+        context.rect(0, 0, canvas.width, canvas.height);
+
+        var grd = context.createLinearGradient(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        grd.addColorStop(0, "#8ED6FF");
+        grd.addColorStop(1, "#004CB3");
+
+        context.fillStyle = grd;
+        context.fill();
       }
       function keyDownHandler(e) {
         if (e.key == "Right" || e.key == "ArrowRight") {
